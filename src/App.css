@@ -1,0 +1,5 @@
+body {
+  background: linear-gradient(rgb(0, 0, 0), #060606);
+  background-size: 400% 400%;
+  height: 100vh;
+}

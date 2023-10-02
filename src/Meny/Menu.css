@@ -1,0 +1,26 @@
+/* Menu.css */
+
+/* ul element */
+ul.menu {
+  padding: 12px;
+  background-color: #000000;
+  text-align: center;
+}
+
+/* Whole list */
+ul.menu li {
+  display: inline; /* Display items in a horizontal line */
+  margin-right: 2px; /* Add spacing between menu items */
+}
+
+/* Each link */
+ul.menu li a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 700;
+}
+
+/* Change color on mouseover */
+ul.menu li a:hover {
+  color: #ff9900;
+}
