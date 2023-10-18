@@ -1,0 +1,77 @@
+/* Catalog.css */
+
+.catalog-container {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .small-image {
+    width: 100px; /* Adjust the width as needed */
+    height: auto;
+  }
+  
+  .catalog-container h2 {
+    color: white;
+  }
+
+  .catalog-input-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    color: white;
+  }
+  
+  .catalog-input-field {
+    margin-right: 10px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .catalog-create-button {
+    background-color: #06d459;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .catalog-create-button:hover {
+    background-color: #00b339;
+  }
+  
+  .catalog-list {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .catalog-list-item {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin: 10px;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 200px;
+    text-align: center;
+  }
+  
+  .catalog-list-item button {
+    background-color: #06d459;
+    color: white;
+    padding: 4px 8px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 5px;
+  }
+  
+  .catalog-list-item button:hover {
+    background-color: #00b339;
+  }
+  

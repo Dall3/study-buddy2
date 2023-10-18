@@ -8,12 +8,7 @@
     padding: 40px;
   }
   
-  .home header h1 {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-  }
-
-  .home div h2 {
+  .home h2 {
     color:rgb(255, 255, 255)
   }
   
@@ -45,23 +40,5 @@
     height: auto;
   }
   
-  /* Styles for the call to action section */
-  .home .cta {
-    text-align: center;
-    margin-top: 40px;
-  }
   
-  .home .cta h2 {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
-  }
   
-  .home .cta button {
-    background-color: rgb(255, 255, 255);
-    color: #ffffff;
-    border: none;
-    padding: 10px 20px;
-    font-size: 1.25rem;
-    cursor: pointer;
-    border-radius: 5px;
-  }

@@ -2,15 +2,17 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import "./Menu.css";
 
+
 function Menu() {
+
   return (
     <ul className="menu">
-      <li><Link to="/">| Home |</Link></li>
-      <li><Link to="/about">About |</Link></li>
-      <li><Link to="/create-flashcard">Create Flashcard |</Link></li>
-      <li><Link to="/flashcard-list">All Flashcards |</Link></li>
-      <li><Link to="#">Quiz Mode |</Link></li>
-      <li><Link to="#">Study Mode |</Link></li>
+      <li><Link to="/home">| Home |</Link></li>
+      <li><Link to="/catalog">Create Subject |</Link></li>
+      <li><Link to="/quiz">Quiz Mode |</Link></li>
+      <li><Link to="/study">Study Mode |</Link></li>
+      <li><Link to="/profile">Profile |</Link></li>
+      <li><Link to="/">Log out |</Link></li>
     </ul>
   );
 }

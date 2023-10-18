@@ -1,10 +1,12 @@
 /*
-File for express.js to handle connections to studybuddy.db
+Main file for express.js to start the backend
 */
 
 const express = require("express");
 const cors = require("cors"); // Cross-domain-requests : e.g. frontend on 3000 and backend 5000 so that they can communicate with each other, because the browser blocks it otherwise
-const sqlite3 = require("sqlite3").verbose();
+const db = require("./db");
+const multer = require("multer");
+const path = require("path");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -13,67 +15,60 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-//Connect to SQLite database
-const db = new sqlite3.Database('studybuddy.db', (err) => {
+/*
+db.exec(`
+  DROP TABLE IF EXISTS subjects;
+  DROP TABLE IF EXISTS courses;
+  DROP TABLE IF EXISTS flashcards;
+`, (err) => {
+  if (err) {
+    console.error("Error dropping tables:", err);
+  } else {
+    console.log("Tables dropped successfully");
+  }
+});
+*/
+
+// Subject router
+const subjectsRouter = require("./Routes/subjectRoutes");
+app.use("/", subjectsRouter);
+
+// Flashcards router
+const flashcardsRouter = require("./Routes/flashcardsRoute");
+app.use("/", flashcardsRouter);
+
+// Course router
+const coursesRouter = require("./Routes/courseRoutes");
+app.use("/", coursesRouter);  
+
+// Multer's disk storage engine
+const storage = multer.diskStorage({
+  destination: path.join(__dirname, '../public/uploads/'),
+
+  filename: function(req, file, cb) {
+    cb(null, file.originalname);
+  }
+});
+
+
+const upload = multer({ storage: storage }).single('image');
+
+app.use('/uploads', express.static(path.join(__dirname, '../public/uploads')));
+
+
+app.post('/upload', (req, res) => {
+  upload(req, res, (err) => {
     if (err) {
-        console.error('Error connecting to database:', err.message);
+      res.status(500).send({ error: err.message });
     } else {
-        console.log('Connected to SQLite database');
+      if (req.file === undefined) {
+        res.status(400).send({ error: 'No file selected' });
+      } else {
+        res.send({ imageUrl: `/uploads/${req.file.filename}` });
+      }
     }
+  });
 });
-
-// Create flashcards table if not exists
-db.run(`
-  CREATE TABLE IF NOT EXISTS flashcards (
-    id INTEGER PRIMARY KEY,
-    question TEXT,
-    answer TEXT,
-    subject TEXT,
-    course TEXT,
-    image TEXT,
-    category TEXT
-  )
-`);
-
-
-
-// Routes
-app.get("/", (req, res) => {
-    res.send("Hello,  Express");
-});
-
-// Route to get all flashcards from the database
-app.get("/flashcards", (req, res) => {
-    // SQL query
-    const query = "SELECT * FROM flashcards";
-
-    // Execute query
-    db.all(query, (err, rows) => {
-        if (err) {
-            console.error("Error fetching flashcards:", err);
-        } else {
-            res.json(rows);
-        }
-    });
-})
-
-// Route to post a new flashcard into the database
-app.post("/flashcards", (req, res) => {
-    // Extract data from the request
-    const { question, answer, subject, course, image, category } = req.body;
-
-    // SQL query
-    const query = "INSERT INTO flashcards (question, answer, subject, course, image, category) VALUES (?, ?, ?, ?, ?, ?)";
-    
-    // Execute query
-    db.run(query, [question, answer, subject, course, image, category], (err) => {
-        if (err) {
-            return console.error("Error adding flashcard:", err);
-        } else {
-            res.json({ message: "Flashcard added successfully"})
-        }
-    })
-})
 
 // Start the server
 app.listen(PORT, () => {
